@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: book-import
+spec:
+  generators:
+   - clusterDecisionResource:
+       configMapRef: ocm-placement
+       labelSelector:
+         matchLabels:
+           cluster.open-cluster-management.io/placement: deploy-placement
+       requeueAfterSeconds: 30
+  template:
+    metadata:
+      name: '{{name}}-bgd'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/loicalbertin/argocd-example-apps.git'
+        path: guestbook
+        targetRevision: HEAD
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      destination:
+        name: '{{clusterName}}'
+        namespace: default
+
