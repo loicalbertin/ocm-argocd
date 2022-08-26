@@ -31,8 +31,15 @@ export https_proxy="..."
 
 ## Deploy the demo application
 
+Now we will first deploy a placement policy that in our case will request to deploy the application on both cluster1 and cluster2.
+And then we will deploy the actual application using an ApplicationSet (a kind of application template).
+
+You can follow the deployment in the Argo UI.
+
 ```bash
+# Deploy a placement policy
 kubectl -n argocd  --context kind-hub  apply --wait -f ./manifests/placement.yaml
+# Deploy the app
 kubectl -n argocd  --context kind-hub  apply --wait -f ./manifests/argocd_application_set.yaml
 ```
 
