@@ -26,6 +26,7 @@ If you need some proxies to access internet you should export your proxy setting
 ```bash
 export http_proxy="..."
 export https_proxy="..."
+export no_proxy="127.0.0.1,172.17.0.1(,...)"
 ./setup_with_kind.sh
 ```
 
